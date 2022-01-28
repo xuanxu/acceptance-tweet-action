@@ -1,0 +1,50 @@
+name: Tweet paper acceptance
+description: Send a tweet announcing a new published paper
+inputs:
+  journal_name:
+    description: The name of the journal
+    required: true
+  paper_title:
+    description: The title of the accepted paper
+    required: true
+  paper_doi:
+    description: The DOI of the accepted paper
+    required: true
+  twitter_consumer_key:
+    description: Twitter consumer key
+    required: false
+  twitter_consumer_secret:
+    description: Twitter consumer secret
+    required: true
+  twitter_access_token:
+    description: Twitter access token
+    required: true
+  twitter_access_token_secret:
+    description: Twitter access token secret
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Install Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.0
+        bundler-cache: true
+        cache-version: acceptance-tweet
+        bundler: Gemfile.lock
+        working-directory: ${{ github.action_path }}
+    - name: Tweet paper
+      shell: bash
+      env:
+        JOURNAL_NAME: ${{ inputs.journal_name }}
+        PAPER_TITLE: ${{ inputs.paper_title }}
+        TWITTER_CONSUMER_KEY: ${{ inputs.twitter_consumer_key }}
+        TWITTER_CONSUMER_SECRET: ${{ inputs.twitter_consumer_secret }}
+        TWITTER_ACCESS_TOKEN: ${{ inputs.twitter_access_token }}
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ inputs.twitter_access_token_secret }}
+        BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
+      run: |
+        bundle exec ruby ${{ github.action_path }}/tweet_acceptance.rb
+branding:
+  icon: twitter
+  color: blue
