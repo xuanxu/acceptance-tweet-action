@@ -11,7 +11,7 @@ To be able to comment in a GitHub issue, the env variable `GH_ACCESS_TOKEN`shoul
 
 The action accepts the following inputs:
 
-- **journal_name**: Required. The name of the journal
+- **journal_name**: Required. The name of the journal.
 - **paper_title**: Required. The title of the accepted paper.
 - **paper_doi**: Required. The DOI of the accepted paper.
 - **twitter_consumer_key**: Required. Twitter consumer key.
