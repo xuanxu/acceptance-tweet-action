@@ -38,6 +38,7 @@ runs:
       env:
         JOURNAL_NAME: ${{ inputs.journal_name }}
         PAPER_TITLE: ${{ inputs.paper_title }}
+        PAPER_DOI: ${{ inputs.paper_doi }}
         TWITTER_CONSUMER_KEY: ${{ inputs.twitter_consumer_key }}
         TWITTER_CONSUMER_SECRET: ${{ inputs.twitter_consumer_secret }}
         TWITTER_ACCESS_TOKEN: ${{ inputs.twitter_access_token }}
