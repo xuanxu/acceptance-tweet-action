@@ -18,15 +18,20 @@ The action accepts the following inputs:
 - **twitter_consumer_secret**: Required. Twitter consumer secret.
 - **twitter_access_token**: Required. Twitter access token.
 - **twitter_access_token_secret**: Required. Twitter access token secret.
+- **reviews_repo**: Required. The repository containing the review issue for the paper.
+- **issue_id**: Required. The issue number of the submission (to post a link to the tweet).
+- **gh_token**: Required. The github token to use for replying to the review issue.
 
 ### Example
 
-Used as a step in a workflow `.yml` file in a repo's `.github/workflows/` directory passing custom input values from diferent sources: other step's outputs, secrets or directly:
+Used as a step in a workflow `.yml` file in a repo's `.github/workflows/` directory passing custom input values from diferent sources: event inputs, other step's outputs, secrets and directly:
 
 ````yaml
 on:
   workflow_dispatch:
-
+   inputs:
+      issue_id:
+        description: 'The issue number of the submission'
 jobs:
   processing:
     runs-on: ubuntu-latest
@@ -46,5 +51,8 @@ jobs:
           twitter_consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           twitter_access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           twitter_access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          reviews_repo: openjournals/joss-reviews
+          issue_id: ${{ github.event.inputs.issue_id }}
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 

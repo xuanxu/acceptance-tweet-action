@@ -22,6 +22,15 @@ inputs:
   twitter_access_token_secret:
     description: Twitter access token secret
     required: true
+  reviews_repo:
+    description: The repository containing the review issue for the paper
+    required: true
+  issue_id:
+    description: The issue number of the submission (to post a link to the tweet)
+    required: true
+  gh_token:
+    description: The github token to use for replying to the review issue
+    required: true
 runs:
   using: "composite"
   steps:
@@ -34,6 +43,7 @@ runs:
         bundler: Gemfile.lock
         working-directory: ${{ github.action_path }}
     - name: Tweet paper
+      id: send-tweet
       shell: bash
       env:
         JOURNAL_NAME: ${{ inputs.journal_name }}
@@ -46,6 +56,13 @@ runs:
         BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
       run: |
         bundle exec ruby ${{ github.action_path }}/tweet_acceptance.rb
+    - name: Comment
+      if: ${{ steps.send-tweet.tweet_result == 'ok' }}
+        run: |
+          gh issue comment ${{ inputs.issue_id }} --body "🐦🐦🐦 👉 [Tweet for this paper](${{ steps.send-tweet.tweet_url }}) 👈 🐦🐦🐦"
+        env:
+          GITHUB_TOKEN: ${{ inputs.gh_token }}
+          GH_REPO: ${{ inputs.reviews_repo }}
 branding:
   icon: twitter
   color: blue
