@@ -58,6 +58,7 @@ runs:
         bundle exec ruby ${{ github.action_path }}/tweet_acceptance.rb
     - name: Comment
       if: ${{ steps.send-tweet.tweet_result == 'ok' }}
+      shell: bash
       run: |
         gh issue comment ${{ inputs.issue_id }} --body "🐦🐦🐦 👉 [Tweet for this paper](${{ steps.send-tweet.tweet_url }}) 👈 🐦🐦🐦"
       env:
