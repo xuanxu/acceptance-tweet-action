@@ -55,7 +55,7 @@ runs:
         TWITTER_ACCESS_TOKEN_SECRET: ${{ inputs.twitter_access_token_secret }}
         BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
       run: |
-        bundle exec ruby ${{ github.action_path }}/tweet_acceptance.rb
+        bundle exec ruby ${{ github.action_path }}/acceptance_tweet.rb
     - name: Comment
       if: ${{ steps.send-tweet.tweet_result == 'ok' }}
       shell: bash
