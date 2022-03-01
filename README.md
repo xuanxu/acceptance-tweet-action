@@ -5,7 +5,7 @@ This action creates a tweet announcing the acceptance of a paper.
 ## Usage
 
 Usually this action is used as a final step in a workflow accepting a paper after depositing and DOI generation is complete.
-To be able to comment in a GitHub issue, the env variable `GH_ACCESS_TOKEN`should be set.
+To receive a comment in a GitHub issue with a link to the tweet, the input variables `gh_token`, `issue_id` and `reviews_repo` should be passed.
 
 ### Inputs
 
