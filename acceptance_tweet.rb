@@ -14,7 +14,7 @@ credentials = [twitter_consumer_key, twitter_consumer_secret, twitter_access_tok
 
 if credentials.any?{|c| c.empty?}
   system("echo '!! Error tweeting: Missing Twitter credentials'")
-  system("echo '::set-output name=tweet_result::errored'")
+  system("echo 'tweet_result=errored' >> $GITHUB_OUTPUT")
 else
   begin
     client = Twitter::REST::Client.new do |c|
@@ -26,10 +26,10 @@ else
 
     tweet = client.update(tw_txt)
 
-    system("echo '::set-output name=tweet_url::#{tweet.uri.to_s}'")
-    system("echo '::set-output name=tweet_result::ok'")
+    system("echo 'tweet_url=#{tweet.uri.to_s}' >> $GITHUB_OUTPUT")
+    system("echo 'tweet_result=ok' >> $GITHUB_OUTPUT")
   rescue
-    system("echo '::set-output name=tweet_result::errored'")
+    system("echo 'tweet_result=errored' >> $GITHUB_OUTPUT")
     system("echo '!! Error tweeting: Sending tweet failed'")
   end
 end
