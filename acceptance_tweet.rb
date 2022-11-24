@@ -12,8 +12,8 @@ tw_txt = %Q(Just published in #{journal_name}: '#{paper_title}' https://doi.org/
 
 credentials = [twitter_consumer_key, twitter_consumer_secret, twitter_access_token, twitter_access_token_secret]
 
-if credentials.any?{|c| c.empty?}
-  system("echo '!! Error tweeting: Missing Twitter credentials'")
+if credentials.any?{|c| c.to_s.strip.empty?}
+  system("echo '!! Can't tweet: Missing Twitter credentials'")
   system("echo 'tweet_result=errored' >> $GITHUB_OUTPUT")
 else
   begin

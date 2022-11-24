@@ -15,13 +15,22 @@ inputs:
     required: false
   twitter_consumer_secret:
     description: Twitter consumer secret
-    required: true
+    required: false
   twitter_access_token:
     description: Twitter access token
-    required: true
+    required: false
   twitter_access_token_secret:
     description: Twitter access token secret
-    required: true
+    required: false
+  mastodon_access_token:
+    description: Mastodon access token
+    required: false
+  mastodon_instance_url:
+    description: Mastodon instance URL
+    required: false
+  mastodon_user:
+    description: Mastodon user (without instance info)
+    required: false
   reviews_repo:
     description: The repository containing the review issue for the paper
     required: true
@@ -56,11 +65,32 @@ runs:
         BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
       run: |
         bundle exec ruby ${{ github.action_path }}/acceptance_tweet.rb
-    - name: Comment
+    - name: Toot paper
+      id: send-toot
+      shell: bash
+      env:
+        JOURNAL_NAME: ${{ inputs.journal_name }}
+        PAPER_TITLE: ${{ inputs.paper_title }}
+        PAPER_DOI: ${{ inputs.paper_doi }}
+        MASTODON_TOKEN: ${{ inputs.mastodon_access_token }}
+        MASTODON_INSTANCE_URL: ${{ inputs.mastodon_instance_url }}
+        MASTODON_USER: ${{ inputs.mastodon_user }}
+        BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
+      run: |
+        bundle exec ruby ${{ github.action_path }}/acceptance_toot.rb
+    - name: Comment Twitter
       if: ${{ steps.send-tweet.outputs.tweet_result == 'ok' }}
       shell: bash
       run: |
         gh issue comment ${{ inputs.issue_id }} --body "🐦🐦🐦 👉 [Tweet for this paper](${{ steps.send-tweet.outputs.tweet_url }}) 👈 🐦🐦🐦"
+      env:
+        GITHUB_TOKEN: ${{ inputs.gh_token }}
+        GH_REPO: ${{ inputs.reviews_repo }}
+    - name: Comment Mastodon
+      if: ${{ steps.send-toot.outputs.toot_result == 'ok' }}
+      shell: bash
+      run: |
+        gh issue comment ${{ inputs.issue_id }} --body "🐘🐘🐘 👉 [Toot for this paper](${{ steps.send-toot.outputs.toot_url }}) 👈 🐘🐘🐘"
       env:
         GITHUB_TOKEN: ${{ inputs.gh_token }}
         GH_REPO: ${{ inputs.reviews_repo }}
