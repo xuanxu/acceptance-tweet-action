@@ -1,11 +1,11 @@
 # Open Journals :: Acceptance tweet
 
-This action creates a tweet announcing the acceptance of a paper.
+This action creates a tweet and/or a toot announcing the acceptance of a paper.
 
 ## Usage
 
 Usually this action is used as a final step in a workflow accepting a paper after depositing and DOI generation is complete.
-To receive a comment in a GitHub issue with a link to the tweet, the input variables `gh_token`, `issue_id` and `reviews_repo` should be passed.
+To receive a comment in a GitHub issue with a link to the tweet/toot, the input variables `gh_token`, `issue_id` and `reviews_repo` should be passed.
 
 ### Inputs
 
@@ -14,13 +14,19 @@ The action accepts the following inputs:
 - **journal_name**: Required. The name of the journal.
 - **paper_title**: Required. The title of the accepted paper.
 - **paper_doi**: Required. The DOI of the accepted paper.
-- **twitter_consumer_key**: Required. Twitter consumer key.
-- **twitter_consumer_secret**: Required. Twitter consumer secret.
-- **twitter_access_token**: Required. Twitter access token.
-- **twitter_access_token_secret**: Required. Twitter access token secret.
 - **reviews_repo**: Required. The repository containing the review issue for the paper.
-- **issue_id**: Required. The issue number of the submission (to post a link to the tweet).
+- **issue_id**: Required. The issue number of the submission (to post a link to the tweet or toot).
 - **gh_token**: Required. The github token to use for replying to the review issue.
+
+- **twitter_consumer_key**: Optional. Twitter consumer key. Required if sending post to Twitter.
+- **twitter_consumer_secret**: Optional. Twitter consumer secret. Required if sending post to Twitter.
+- **twitter_access_token**: Optional. Twitter access token. Required if sending post to Twitter.
+- **twitter_access_token_secret**: Optional. Twitter access token secret. Required if sending post to Twitter.
+
+- **mastodon_access_token**: Optional. Mastodon access token. Required if sending post to Mastodon.
+- **mastodon_instance_url**: Optional. Mastodon instance URL. Required if sending post to Mastodon.
+- **mastodon_user**: Optional. Mastodon user (without instance info). Required if sending post to Mastodon.
+
 
 ### Example
 
@@ -51,6 +57,9 @@ jobs:
           twitter_consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
           twitter_access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           twitter_access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          mastodon_access_token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          mastodon_instance_url: ${{ secrets.MASTODON_INSTANCE_URL }}
+          mastodon_user: ${{ secrets.MASTODON_USER }}
           reviews_repo: openjournals/joss-reviews
           issue_id: ${{ github.event.inputs.issue_id }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}

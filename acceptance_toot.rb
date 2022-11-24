@@ -15,7 +15,7 @@ text = %Q(Just published in #{journal_name}: '#{paper_title}' https://doi.org/#{
 credentials = [mastodon_token, mastodon_instance_url, mastodon_user]
 
 if credentials.any?{|c| c.empty?}
-  system("echo '!! Error posting to Mastodon: Missing credentials'")
+  system("echo '!! Can't post to Mastodon: Missing credentials'")
   system("echo 'toot_result=errored' >> $GITHUB_OUTPUT")
 else
   begin
