@@ -62,8 +62,8 @@ jobs:
           twitter_access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           twitter_access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           mastodon_access_token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
-          mastodon_instance_url: ${{ secrets.MASTODON_INSTANCE_URL }}
-          mastodon_user: ${{ secrets.MASTODON_USER }}
+          mastodon_instance_url: https://fosstodon.org
+          mastodon_user: @joss
           reviews_repo: openjournals/joss-reviews
           issue_id: ${{ github.event.inputs.issue_id }}
           gh_token: ${{ secrets.GITHUB_TOKEN }}
