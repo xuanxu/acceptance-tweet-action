@@ -1,4 +1,4 @@
-# Open Journals :: Acceptance tweet
+# Open Journals :: Acceptance social media posts
 
 This action creates a tweet and/or a toot announcing the acceptance of a paper.
 
