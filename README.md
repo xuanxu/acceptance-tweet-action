@@ -18,14 +18,14 @@ The action accepts the following inputs:
 - **issue_id**: Required. The issue number of the submission (to post a link to the tweet or toot).
 - **gh_token**: Required. The github token to use for replying to the review issue.
 
-The create a post in Twitter this inputs are needed:
+To create a post in Twitter this inputs are needed:
 
 - **twitter_consumer_key**: Optional. Twitter consumer key. Required if sending post to Twitter.
 - **twitter_consumer_secret**: Optional. Twitter consumer secret. Required if sending post to Twitter.
 - **twitter_access_token**: Optional. Twitter access token. Required if sending post to Twitter.
 - **twitter_access_token_secret**: Optional. Twitter access token secret. Required if sending post to Twitter.
 
-The create a post in Mastodon this inputs are needed:
+To create a post in Mastodon this inputs are needed:
 
 - **mastodon_access_token**: Optional. Mastodon access token. Required if sending post to Mastodon.
 - **mastodon_instance_url**: Optional. Mastodon instance URL. Required if sending post to Mastodon.
