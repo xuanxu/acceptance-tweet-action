@@ -29,9 +29,14 @@ else
 
     headers["Idempotency-Key"] = Digest::SHA1.hexdigest(text)
     toot = Faraday.post(mastodon_status_url, parameters, headers)
-    response = JSON.parse(toot.body)
 
-    toot_url = response["url"]
+    unless toot.status == 200
+      system("echo '!! ERROR: Mastodon API post failed with status: #{toot.status}'")
+      raise "!! ERROR: Mastodon API post failed with status: #{toot.status}"
+    end
+
+    parsed_response = JSON.parse(toot.body)
+    toot_url = parsed_response["url"]
 
     system("echo 'toot_url=#{toot_url}' >> $GITHUB_OUTPUT")
     system("echo 'toot_result=ok' >> $GITHUB_OUTPUT")
