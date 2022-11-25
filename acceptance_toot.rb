@@ -1,5 +1,6 @@
 require "faraday"
 require "faraday/retry"
+require 'json'
 
 default_mastodon_instance_url = "https://astrodon.social"
 
@@ -28,8 +29,9 @@ else
 
     headers["Idempotency-Key"] = Digest::SHA1.hexdigest(text)
     toot = Faraday.post(mastodon_status_url, parameters, headers)
+    response = JSON.parse(toot.body)
 
-    toot_url = mastodon_instance_url + mastodon_user + "/" + toot.response.id
+    toot_url = response["url"]
 
     system("echo 'toot_url=#{toot_url}' >> $GITHUB_OUTPUT")
     system("echo 'toot_result=ok' >> $GITHUB_OUTPUT")
