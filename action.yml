@@ -22,6 +22,9 @@ inputs:
   twitter_access_token_secret:
     description: Twitter access token secret
     required: false
+  twitter_user:
+    description: Twitter user
+    required: false
   mastodon_access_token:
     description: Mastodon access token
     required: false
@@ -62,6 +65,7 @@ runs:
         TWITTER_CONSUMER_SECRET: ${{ inputs.twitter_consumer_secret }}
         TWITTER_ACCESS_TOKEN: ${{ inputs.twitter_access_token }}
         TWITTER_ACCESS_TOKEN_SECRET: ${{ inputs.twitter_access_token_secret }}
+        TWITTER_USER: ${{ inputs.twitter_user }}
         BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
       run: |
         bundle exec ruby ${{ github.action_path }}/acceptance_tweet.rb

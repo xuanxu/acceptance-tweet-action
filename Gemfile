@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'twitter'
+gem 'x'
 gem 'faraday'
 gem 'faraday-retry'
