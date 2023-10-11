@@ -24,6 +24,7 @@ To create a post in Twitter this inputs are needed:
 - **twitter_consumer_secret**: Optional. Twitter consumer secret. Required if sending post to Twitter.
 - **twitter_access_token**: Optional. Twitter access token. Required if sending post to Twitter.
 - **twitter_access_token_secret**: Optional. Twitter access token secret. Required if sending post to Twitter.
+- **twitter_user**: Optional. Twitter username. Required if sending post to Twitter.
 
 To create a post in Mastodon this inputs are needed:
 
