@@ -31,7 +31,7 @@ else
     tweet_body = { text: tw_txt }
     tweet = client.post("tweets", tweet_body.to_json)
 
-    url = "https://twitter.com/#{twitter_username}/status/#{tweet['data']['id']}"
+    url = "https://twitter.com/#{twitter_user}/status/#{tweet['data']['id']}"
 
     system("echo 'tweet_url=#{url}' >> $GITHUB_OUTPUT")
     system("echo 'tweet_result=ok' >> $GITHUB_OUTPUT")
