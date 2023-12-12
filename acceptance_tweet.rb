@@ -35,8 +35,8 @@ else
 
     system("echo 'tweet_url=#{url}' >> $GITHUB_OUTPUT")
     system("echo 'tweet_result=ok' >> $GITHUB_OUTPUT")
-  rescue
+  rescue Exception => e
     system("echo 'tweet_result=errored' >> $GITHUB_OUTPUT")
-    system("echo '!! Error tweeting: Sending tweet failed'")
+    system("echo '!! Error tweeting: Sending tweet failed: #{e.message}'")
   end
 end
