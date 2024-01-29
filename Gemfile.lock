@@ -1,16 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    base64 (0.2.0)
-    faraday (2.7.12)
-      base64
-      faraday-net_http (>= 2.0, < 3.1)
-      ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.2)
+    faraday (2.9.0)
+      faraday-net_http (>= 2.0, < 3.2)
+    faraday-net_http (3.1.0)
+      net-http
     faraday-retry (2.2.0)
       faraday (~> 2.0)
-    ruby2_keywords (0.0.5)
-    x (0.14.0)
+    net-http (0.4.1)
+      uri
+    uri (0.13.0)
+    x (0.14.1)
 
 PLATFORMS
   ruby
