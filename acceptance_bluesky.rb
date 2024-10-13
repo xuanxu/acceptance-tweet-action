@@ -46,8 +46,8 @@ else
       post_response = Faraday.post(post_url, post_body.to_json, post_headers)
       if post_response.status.between?(200, 299)
         json_response = JSON.parse(post_response.body)
-        rev = json_response["commit"]["rev"]
-        bluesky_url = "https://bsky.app/profile/#{login_parameters[:identifier]}/post/#{rev}"
+        post_id = json_response["uri"].split("/").last
+        bluesky_url = "https://bsky.app/profile/#{login_parameters[:identifier]}/post/#{post_id}"
         system("echo 'bluesky_url=#{bluesky_url}' >> $GITHUB_OUTPUT")
         system("echo 'bluesky_result=ok' >> $GITHUB_OUTPUT")
       else
