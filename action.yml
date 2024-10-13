@@ -34,6 +34,12 @@ inputs:
   mastodon_user:
     description: Mastodon user (without instance info)
     required: false
+  bluesky_username:
+    description: Bluesky user (complete, like joss-openjournals.bsky.social)
+    required: false
+  bluesky_password:
+    description: Bluesky password
+    required: false
   reviews_repo:
     description: The repository containing the review issue for the paper
     required: true
@@ -82,6 +88,18 @@ runs:
         BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
       run: |
         bundle exec ruby ${{ github.action_path }}/acceptance_toot.rb
+    - name: Bluesky paper
+      id: send-to-bluesky
+      shell: bash
+      env:
+        JOURNAL_NAME: ${{ inputs.journal_name }}
+        PAPER_TITLE: ${{ inputs.paper_title }}
+        PAPER_DOI: ${{ inputs.paper_doi }}
+        BLUESKY_USERNAME: ${{ inputs.bluesky_username }}
+        BLUESKY_PASSWORD: ${{ inputs.bluesky_password }}
+        BUNDLE_GEMFILE: ${{ github.action_path }}/Gemfile
+      run: |
+        bundle exec ruby ${{ github.action_path }}/acceptance_bluesky.rb
     - name: Comment Twitter
       if: ${{ steps.send-tweet.outputs.tweet_result == 'ok' }}
       shell: bash
@@ -95,6 +113,14 @@ runs:
       shell: bash
       run: |
         gh issue comment ${{ inputs.issue_id }} --body "🐘🐘🐘 👉 [Toot for this paper](${{ steps.send-toot.outputs.toot_url }}) 👈 🐘🐘🐘"
+      env:
+        GITHUB_TOKEN: ${{ inputs.gh_token }}
+        GH_REPO: ${{ inputs.reviews_repo }}
+    - name: Comment Bluesky
+      if: ${{ steps.send-to-bluesky.outputs.bluesky_result == 'ok' }}
+      shell: bash
+      run: |
+        gh issue comment ${{ inputs.issue_id }} --body "🦋🦋🦋 👉 [Bluesky post for this paper](${{ steps.send-to-bluesky.outputs.bluesky_url }}) 👈 🦋🦋🦋"
       env:
         GITHUB_TOKEN: ${{ inputs.gh_token }}
         GH_REPO: ${{ inputs.reviews_repo }}
