@@ -2,19 +2,43 @@ GEM
   remote: https://rubygems.org/
   specs:
     base64 (0.3.0)
-    faraday (2.9.0)
-      faraday-net_http (>= 2.0, < 3.2)
-    faraday-net_http (3.1.0)
-      net-http
+    faraday (2.15.1)
+      faraday-net_http (>= 2.0, < 3.6)
+      json
+      logger
+    faraday-net_http (3.5.0)
+      net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
-    net-http (0.4.1)
-      uri
-    uri (0.13.0)
-    x (0.14.1)
+    json (3.1.0)
+    logger (1.7.0)
+    net-http (0.10.0)
+      net-protocol (>= 0.3.0)
+      uri (>= 0.11.1)
+    net-protocol (0.4.0)
+      timeout
+    simple_oauth (1.0.1)
+    timeout (0.6.1)
+    uri (1.1.2)
+    x (1.0.0)
+      x-core (= 1.0.0)
+      x-resources (= 1.0.0)
+      x-streams (= 1.0.0)
+      x-uploads (= 1.0.0)
+    x-core (1.0.0)
+      net-http (~> 0.9, >= 0.9.1)
+      simple_oauth (~> 1.0)
+    x-resources (1.0.0)
+      x-core (>= 1.0.0, < 2)
+    x-streams (1.0.0)
+      x-core (>= 1.0.0, < 2)
+    x-uploads (1.0.0)
+      x-core (>= 1.0.0, < 2)
 
 PLATFORMS
+  arm64-darwin-27
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   base64
